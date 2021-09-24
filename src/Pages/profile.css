@@ -1,0 +1,16 @@
+.header {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 1000px;
+  text-align: center;
+}
+
+h3 {
+  float: left;
+}
+
+button.logout {
+  float: right;
+}
