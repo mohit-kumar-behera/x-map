@@ -16,10 +16,11 @@
 
 .inner-popup {
   position: relative;
-  padding: 32px;
+  padding: 3.5rem;
   width: 100%;
   max-width: 640px;
-  background-color: #5c9cad;
+  background-color: rgb(0, 106, 228);
+  border-radius: 6px;
 }
 
 .location-popup .close-btn {
@@ -28,11 +29,28 @@
   right: 15px;
   width: 30px;
   height: 30px;
-  background: #5c9cad;
+  background: #00000040;
   color: #fff;
   text-align: center;
   line-height: 10px;
   border: none;
-  /* border-radius: 100px; */
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.location-name {
+  width: 70%;
+  border-radius: 6px;
+  padding: 0 22px;
+  font-size: 16px;
+  border: 1px solid black;
+  padding: 0.3rem 0.7rem;
+  margin-right: 0.7rem;
+}
+
+button.location-name-search {
+  padding: 0.7rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
   cursor: pointer;
 }

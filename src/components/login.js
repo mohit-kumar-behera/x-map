@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import './auth.css';
 
 function Login() {
   const loginUser = async ev => {
@@ -26,13 +26,20 @@ function Login() {
       if (!responseData.ok) throw Error('Email or Password Incorrect');
 
       localStorage.setItem('token', response.access);
+
+      /*
+        ======================
+        REDIRECT TO PROFILE PAGE
+        ======================
+      */
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
   return (
-    <form className="login" onSubmit={loginUser}>
+    <form className="login form" onSubmit={loginUser}>
+      <h1>Login</h1>
       <input
         type="email"
         placeholder="Email address"

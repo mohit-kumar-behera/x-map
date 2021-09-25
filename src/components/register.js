@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import './auth.css';
 
 function Register() {
   const registerUser = async ev => {
@@ -22,15 +24,21 @@ function Register() {
         options
       );
       const response = await responseData.json();
-      if (!responseData.ok) throw Error('user with this mail already exists');
-      console.log(response);
+      if (!responseData.ok)
+        throw Error('User with this email address already exists');
+      /*
+        ======================
+        REDIRECT TO LOGIN PAGE
+        ======================
+      */
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   };
 
   return (
-    <form className="register" onSubmit={registerUser}>
+    <form className="register form" onSubmit={registerUser}>
+      <h1>Register</h1>
       <input
         type="email"
         placeholder="Email address"

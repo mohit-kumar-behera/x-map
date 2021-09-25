@@ -2,6 +2,20 @@
   margin-top: 50px;
   width: 800px;
   text-align: center;
+  background-color: #00000020;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.post > * {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.post > *:not(:last-child) {
+  margin-bottom: 2rem;
 }
 
 input {
@@ -9,18 +23,27 @@ input {
   border-radius: 6px;
   padding: 0 22px;
   font-size: 16px;
+  border: 1px solid black;
+  padding: 0.7rem;
+}
+
+textarea {
+  padding: 0.8rem;
+  font-size: 16px;
+  border-radius: 6px;
 }
 
 button.post-button {
-  margin: 50px;
+  width: auto;
   line-height: 40px;
-  padding: 0 22px;
-  font-size: 16px;
+  font-size: 1.3rem;
+  padding: 0.4rem 5rem;
   color: rgb(0, 106, 228);
   background-color: #fff;
   border-width: 5px;
   border-radius: 6px;
   border-color: rgb(0, 106, 228);
+  cursor: pointer;
 }
 
 button.upload {
