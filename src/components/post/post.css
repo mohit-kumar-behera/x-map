@@ -1,6 +1,6 @@
 .post {
   margin-top: 50px;
-  width: 1000px;
+  width: 800px;
   text-align: center;
 }
 
@@ -21,4 +21,8 @@ button.post-button {
   border-width: 5px;
   border-radius: 6px;
   border-color: rgb(0, 106, 228);
+}
+
+button.upload {
+  margin-left: 50px;
 }
