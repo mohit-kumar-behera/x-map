@@ -3,32 +3,25 @@ import LocationPopup from './locationPopup';
 import { GrMapLocation } from 'react-icons/gr';
 import './post.css';
 
-// const L = require('leaflet');
-// const leafletMap = require('leaflet-map');
-
 function Post() {
   const showMap = location => {
     let map;
     const { latitude, longitude } = location;
     const coords = [latitude, longitude];
-    // L.Icon.Default.imagePath =
-    //   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/images';
-    // map = L.map('map').setView(coords, 13);
-    // L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-    //   attribution:
-    //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    // }).addTo(map);
-    // L.marker(coords).addTo(map).bindPopup('Marked Location').openPopup();
   };
 
   const [buttonPopup, setButtonPopup] = useState(false);
-
+  const [img, setImg] = useState('');
   const [location, setLocation] = useState('');
   const [locationName, setLocationName] = useState('');
 
   const handleLocationClick = e => {
     e.preventDefault();
     setButtonPopup(true);
+  };
+
+  const setImageChange = e => {
+    setImg(e.target.files[0]);
   };
 
   const handleLocationSearch = e => {
@@ -55,32 +48,41 @@ function Post() {
           longitude: data.lon,
         };
         setLocation(dataObj);
-
-        showMap(dataObj);
       })
       .catch(err => {
         alert(err);
       })
       .finally(() => {
-        e.target.innerHTML = 'Search';
+        e.target.innerHTML = 'Found';
+        setTimeout(function () {
+          e.target.innerHTML = 'Search';
+          document.getElementById('map').innerHTML = location.display_name;
+        }, 1200);
       });
   };
 
   const handleSubmit = ev => {
     ev.preventDefault();
-    const formDataArr = [...new FormData(ev.target)];
+    const c = new FormData(ev.target);
+    c.append('my_image', img);
+    const formDataArr = [...c];
     let formData = Object.fromEntries(formDataArr);
-    formData = Object.assign({ location: location }, formData);
-    console.log(formData);
+    formData = Object.assign({ location: location, image: img }, formData);
+    fetch('http://127.0.0.1:8000/api/timelines/u/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjMyNjU2MDc4LCJqdGkiOiIxZTNhYTNlNWUwYjY0ZGY2YjRmNzU0NThmZWJlNzNhNyIsInVzZXJfaWQiOiI0ODBjNzJjZS04YWQxLTRhZWEtYWQxZS1kMWE3MWNiMzQxZGEifQ.m8VPLgCAXvcmwr4gdu7vXTN3vQeqQJy6mr60zeqAykw',
+      },
+      body: JSON.stringify(formData),
+    }).then(res => {
+      console.log(res);
+    });
   };
 
   return (
-    <form
-      className="post"
-      method="post"
-      onSubmit={handleSubmit}
-      encType="multipart/form-data"
-    >
+    <form className="post" method="post" onSubmit={handleSubmit}>
       <main>
         <button
           type="button"
@@ -106,11 +108,10 @@ function Post() {
         >
           Search
         </button>
-        <div id="map"></div>
+        <div id="map" style={{ marginTop: '0.8rem' }}></div>
       </LocationPopup>
 
-      <input type="file" name="image_1" />
-      <input type="file" name="image_2" />
+      <input type="file" name="image" onChange={setImageChange} />
 
       <input
         type="text"

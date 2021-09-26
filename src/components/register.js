@@ -1,8 +1,9 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import './auth.css';
 
 function Register() {
+  const [show, setShow] = useState(false);
   const registerUser = async ev => {
     try {
       ev.preventDefault();
@@ -26,11 +27,7 @@ function Register() {
       const response = await responseData.json();
       if (!responseData.ok)
         throw Error('User with this email address already exists');
-      /*
-        ======================
-        REDIRECT TO LOGIN PAGE
-        ======================
-      */
+      setShow(true);
     } catch (err) {
       alert(err);
     }
@@ -51,9 +48,15 @@ function Register() {
         name="password"
         className="descrip"
       />
-
       <button className="submit-button">SUBMIT</button>
       <div className="icons"></div>
+      {show ? (
+        <Link to="/login">
+          <button className="submit-button">Go to Login</button>
+        </Link>
+      ) : (
+        ''
+      )}
     </form>
   );
 }

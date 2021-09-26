@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './auth.css';
 
 function Login() {
+  const [show, setShow] = useState(false);
   const loginUser = async ev => {
     try {
       ev.preventDefault();
@@ -26,12 +28,7 @@ function Login() {
       if (!responseData.ok) throw Error('Email or Password Incorrect');
 
       localStorage.setItem('token', response.access);
-
-      /*
-        ======================
-        REDIRECT TO PROFILE PAGE
-        ======================
-      */
+      setShow(true);
     } catch (err) {
       alert(err);
     }
@@ -54,7 +51,15 @@ function Login() {
       />
 
       <button className="submit-button">SUBMIT</button>
+
       <div className="icons"></div>
+      {show ? (
+        <Link to="/profile">
+          <button className="submit-button">Go to Profile</button>
+        </Link>
+      ) : (
+        ''
+      )}
     </form>
   );
 }
